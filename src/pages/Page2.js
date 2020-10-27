@@ -11,6 +11,23 @@ class Page2 extends Component {
     console.log('constructor');
   }
 
+  // sync : async + await
+  async componentDidMount() {
+    const requestOption = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ name: "-라마바", age: 111 })
+    };
+
+    const response = await fetch('http://127.0.0.1:8080/rest/test1.json', requestOption);
+    const data = await response.json();
+    this.setState({name:data.username, age:data.userage});
+    console.log('fetch success');
+  }
+
+  // async
   componentDidMount() {
     console.log('componentDidMount');
     fetch('http://127.0.0.1:8080/rest/test1.json', {
@@ -18,7 +35,7 @@ class Page2 extends Component {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({name:"-라마바", age:111})
+      body: JSON.stringify({ name: "-라마바", age: 111 })
     }).then(res => res.json())
       .then(data => {
         this.setState({ name: data.username, age: data.userage })
